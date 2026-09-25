@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "python@4.1",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
+    }
+  ]
+}
