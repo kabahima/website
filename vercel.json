@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "api/index.py",
-      "use": "python@4.1",
+      "use": "python@3.12",
       "config": {
         "maxLambdaSize": "50mb"
       }
