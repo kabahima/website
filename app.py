@@ -5,6 +5,8 @@ from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 from flask import Flask, abort, flash, redirect, render_template, request, send_from_directory, session, url_for
+from markupsafe import Markup
+import markdown
 
 from models import Experience, JournalArticle, Skill, WorkProject, db
 from sqlalchemy.exc import IntegrityError, OperationalError
@@ -19,6 +21,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
+
+app.jinja_env.filters["markdown"] = lambda text: Markup(
+    markdown.markdown(text or "", extensions=["fenced_code", "extra"])
+) if text else ""
 
 STATIC_PAGES = {"about.html", "experience.html", "skills.html", "projects.html"}
 CONTENT_MODELS = {

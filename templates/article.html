@@ -1,1 +1,15 @@
-{% extends "base.html" %}{% block title %}{{ article.title }} | Ernest Kabahima{% endblock %}{% block content %}<main class="wrap hero"><p class="mono eyebrow">Journal</p><h1>{{ article.title }}</h1><p class="muted">{{ article.excerpt }}</p><article style="max-width:760px;margin-top:44px;white-space:pre-wrap;line-height:1.8">{{ article.body }}</article></main>{% endblock %}
+{% extends "base.html" %}{% block title %}{{ article.title }} | Ernest Kabahima{% endblock %}{% block content %}
+<main class="wrap">
+  <div class="mono eyebrow">
+    <a href="{{ url_for('journal') }}">← Journal</a>
+  </div>
+  <h1>{{ article.title }}</h1>
+  <p class="muted">{{ article.excerpt }}</p>
+  <p class="mono muted" style="font-size:11px">{{ article.created_at.strftime('%d %b %Y') if article.created_at else '' }}</p>
+  <article class="article-body" style="max-width:760px;margin-top:44px">
+    {{ article.body|markdown|safe }}
+  </article>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</main>
+{% endblock %}
